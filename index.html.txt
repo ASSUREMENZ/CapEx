@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 7 | Panmure Design Hub</title>
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --accent: #D4AF37; /* Champagne Gold */
+            --white: #ffffff;
+            --gray: #f8f8f8;
+            --text: #333333;
+            --wechat: #07C160;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--white);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 1. Immersive Hero Section */
+        .hero {
+            /* References hero.jpg */
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('hero.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin: 10px 0;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        .hero-tag {
+            background-color: var(--accent);
+            color: var(--primary);
+            padding: 6px 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* 2. Visual Asset Cards */
+        .asset-card {
+            background-color: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border: 1px solid #eee;
+        }
+
+        .asset-img-container {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .asset-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .asset-val-tag {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background-color: var(--primary);
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .asset-content {
+            padding: 20px;
+        }
+
+        .asset-content h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.3rem;
+        }
+
+        .asset-content p {
+            color: #666;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* 3. Comparison Box */
+        .comparison-box {
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+
+        .comp-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .comp-row {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comp-col {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .comp-col.winner {
+            background-color: #fffbf0;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .savings-banner {
+            background-color: #2ecc71;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* 4. CTA Section */
+        .cta-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            box-sizing: border-box;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-call { background-color: var(--primary); color: var(--white); }
+        .btn-wechat { background-color: var(--wechat); color: var(--white); }
+        .btn-sms { background-color: #fff; color: var(--primary); border: 2px solid var(--primary); }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.8rem;
+            color: #aaa;
+            background-color: #fafafa;
+            margin-top: 50px;
+        }
+
+        /* Toast Popup */
+        #copyToast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: rgba(0,0,0,0.9);
+            color: #fff;
+            text-align: center;
+            border-radius: 50px;
+            padding: 16px;
+            position: fixed;
+            z-index: 99;
+            left: 50%;
+            bottom: 40px;
+            transform: translateX(-50%);
+            font-size: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        #copyToast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 40px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 40px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. Hero Section -->
+    <div class="hero">
+        <div class="hero-tag">Panmure's Flagship Hub</div>
+        <h1>No Fit-out Needed.<br>Move in Tomorrow.</h1>
+        <p>Unit 7, 71 Jellicoe Road</p>
+        <p style="font-size: 1rem; margin-top: 20px;">
+            <span style="border: 1px solid #fff; padding: 5px 10px; border-radius: 20px;">$55k / Year</span>
+            <span style="border: 1px solid #D4AF37; background:#D4AF37; color:#000; padding: 5px 10px; border-radius: 20px; margin-left:5px;">Incl. $150k Fit-out</span>
+        </p>
+    </div>
+
+    <div class="container">
+        
+        <div style="text-align: center; margin-bottom: 35px;">
+            <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Turnkey Solution</h2>
+            <p style="color: #666; max-width: 400px; margin: 0 auto;">
+                Why waste cash flow on construction? This is a "Plug & Play" accelerator for your brand.
+            </p>
+        </div>
+
+        <!-- 2. Visual Asset Cards -->
+        
+        <!-- Card 1: AV -->
+        <div class="asset-card">
+            <div class="asset-img-container">
+                <!-- references av.jpg -->
+                <img src="av.jpg" alt="Smart AV System" class="asset-img">
+                <div class="asset-val-tag">Value $20,000</div>
+            </div>
+            <div class="asset-content">
+                <h3>🎬 Smart AV Experience Centre</h3>
+                <p>76-inch HD Display + Control4 cabling. Showcase your 3D designs and automation in style.</p>
+            </div>
+        </div>
+
+        <!-- Card 2: Kitchen -->
+        <div class="asset-card">
+            <div class="asset-img-container">
+                <!-- references kitchen.jpg -->
+                <img src="kitchen.jpg" alt="Luxury Kitchen" class="asset-img">
+                <div class="asset-val-tag">Value $50,000</div>
+            </div>
+            <div class="asset-content">
+                <h3>🍳 Luxury Live Kitchen</h3>
+                <p>Premium island, high cabinetry & integrated appliances. A ready-made showroom piece.</p>
+            </div>
+        </div>
+
+        <!-- Card 3: Office -->
+        <div class="asset-card">
+            <div class="asset-img-container">
+                <!-- references office.jpg -->
+                <img src="office.jpg" alt="Executive Office" class="asset-img">
+                <div class="asset-val-tag">Value $50,000</div>
+            </div>
+            <div class="asset-content">
+                <h3>💼 Mezzanine Executive Suite</h3>
+                <p>Private boardroom & separate office. Close six-figure contracts in a professional environment.</p>
+            </div>
+        </div>
+
+        <!-- Extra Value -->
+        <div style="background:#f9f9f9; padding:15px; border-radius:10px; text-align:center; color:#666; font-size:0.9rem;">
+            ➕ Includes <strong>$30,000</strong> worth of Architectural Design & Council Consents
+        </div>
+
+        <!-- 3. Comparison Table -->
+        <div class="comparison-box">
+            <div class="comp-header">Year 1 Cash Flow Comparison</div>
+            <div class="comp-row" style="background: #f9f9f9; font-weight:bold;">
+                <div class="comp-col">Empty Warehouse</div>
+                <div class="comp-col" style="color:var(--primary)">Unit 7 Hub</div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-col">
+                    <small style="color:#999">Annual Rent</small><br>
+                    $30,000
+                </div>
+                <div class="comp-col winner">
+                    <small style="color:#666">Annual Rent</small><br>
+                    $55,000
+                </div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-col">
+                    <small style="color:#999">Fit-out (CapEx)</small><br>
+                    <span style="color:red; text-decoration: line-through;">$150,000</span>
+                </div>
+                <div class="comp-col winner">
+                    <small style="color:#666">Fit-out Cost</small><br>
+                    <span style="color:var(--wechat)">$0 (Included)</span>
+                </div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-col">
+                    <small style="color:#999">Wait Time</small><br>
+                    6 Months
+                </div>
+                <div class="comp-col winner">
+                    <small style="color:#666">Wait Time</small><br>
+                    0 Days
+                </div>
+            </div>
+            <div class="savings-banner">
+                Year 1 Cash Flow Savings: $125,000+
+            </div>
+        </div>
+
+        <!-- 4. Call to Action -->
+        <div class="cta-section">
+            <p style="color: #666; margin-bottom: 20px;">Exclusive Opportunity. Inquire Now.</p>
+            
+            <a href="tel:0275437888" class="btn btn-call">📞 Call Caroline: 027 543 7888</a>
+            
+            <button onclick="copyWeChat()" class="btn btn-wechat">💬 Add WeChat: NZ0275437888 (Copy)</button>
+            
+            <a href="sms:0275437888?body=Hi Caroline, I am interested in Unit 7 Panmure. Please contact me." class="btn btn-sms">✉️ Send SMS Inquiry</a>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © 2026 Panmure Boutique Home Design Centre<br>
+        Unit 7, 71 Jellicoe Road, Auckland
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="copyToast">✅ WeChat ID Copied!<br>Open WeChat to add.</div>
+
+    <script>
+        function copyWeChat() {
+            const wechatId = 'NZ0275437888';
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(wechatId).then(() => showToast()).catch(() => alertCopy(wechatId));
+            } else {
+                let textArea = document.createElement("textarea");
+                textArea.value = wechatId;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                document.body.appendChild(textArea);
+                textArea.select();
+                try { document.execCommand('copy'); showToast(); } catch (err) { alertCopy(wechatId); }
+                document.body.removeChild(textArea);
+            }
+        }
+        function alertCopy(id) { alert("Please manually copy WeChat ID: " + id); }
+        function showToast() {
+            var x = document.getElementById("copyToast");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
+
+</body>
+</html>
